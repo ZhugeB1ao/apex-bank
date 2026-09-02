@@ -163,8 +163,10 @@ Hệ thống được khởi tạo sẵn **15 tài khoản** (1 Quản trị vi�
 3. [🗄️ DATABASE.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/DATABASE.md): Lược đồ CSDL PostgreSQL, Stored Functions, Triggers Cascade Delete & Ràng buộc bất biến.
 4. [🔑 AUTHENTICATION.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/AUTHENTICATION.md): Cơ chế xác thực GoTrue, xử lý JWT Claims, eKYC Data Flow & Xử lý lỗi Schema Tokens.
 5. [🧩 COMPONENTS.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/COMPONENTS.md): Chi tiết các Component React, Design System Tokens, CSS Architecture & Toast System.
-6. [💻 DEVELOPMENT.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/DEVELOPMENT.md): Hướng dẫn thiết lập môi trường, quy chuẩn TypeScript, ESLint & Kịch bản 89 Test Cases.
+6. [💻 DEVELOPMENT.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/DEVELOPMENT.md): Hướng dẫn thiết lập môi trường, quy chuẩn TypeScript, ESLint & Hướng dẫn mở rộng tính năng.
 7. [🚀 DEPLOYMENT.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/DEPLOYMENT.md): Hướng dẫn đóng gói Production Bundle và triển khai Static Hosting (Vercel, Netlify, Cloudflare).
+8. [📋 TEST-CASES.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/TEST-CASES.md): Bảng 89 Test Cases kiểm thử toàn diện trên 10 Module chức năng.
+9. [📊 TEST-REPORT.md](file:///Users/gbao/Code/Frontend/NextJS/apex-bank/docs/TEST-REPORT.md): Báo cáo kết quả kiểm thử thực tế đạt 100% (89/89 Test Cases PASSED).
 
 ---
 
