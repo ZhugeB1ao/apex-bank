@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signIn, signUp } from "../services/auth";
 import type { RegisterData } from "../types/bank-profile";
+import Toast from "./Toast";
 
 export default function AuthForm() {
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -17,7 +18,7 @@ export default function AuthForm() {
   const [cccd, setCccd] = useState("");
   const [sdt, setSdt] = useState("");
   const [diaChi, setDiaChi] = useState("");
-  const [maGioiThieu, setMaGioiThieu] = useState("");
+  const [maNguoiGioiThieu, setMaNguoiGioiThieu] = useState("");
 
   function validate(): string | null {
     if (!email.trim()) return "Email không được để trống";
@@ -31,6 +32,9 @@ export default function AuthForm() {
       if (!/^0\d{9}$/.test(sdt)) return "Số điện thoại phải gồm 10 số, bắt đầu bằng 0";
       if (!diaChi.trim() || diaChi.trim().length < 5)
         return "Địa chỉ phải ít nhất 5 ký tự";
+      if (maNguoiGioiThieu.trim() && maNguoiGioiThieu.trim().length !== 8) {
+        return "Mã người giới thiệu phải gồm đúng 8 ký tự";
+      }
     }
 
     return null;
@@ -60,7 +64,7 @@ export default function AuthForm() {
           cccd: cccd.trim(),
           sdt: sdt.trim(),
           diaChi: diaChi.trim(),
-          maGioiThieu: maGioiThieu.trim() || undefined,
+          maNguoiGioiThieu: maNguoiGioiThieu.trim().toUpperCase() || undefined,
         };
         await signUp(data);
         setSuccess(
@@ -83,7 +87,7 @@ export default function AuthForm() {
     setCccd("");
     setSdt("");
     setDiaChi("");
-    setMaGioiThieu("");
+    setMaNguoiGioiThieu("");
   }
 
   function switchMode(newMode: "login" | "register") {
@@ -94,6 +98,9 @@ export default function AuthForm() {
 
   return (
     <div className="auth-wrapper">
+      {error && <Toast message={error} type="error" onClose={() => setError("")} />}
+      {success && <Toast message={success} type="success" onClose={() => setSuccess("")} />}
+
       <div className="fintech-card">
         {/* Card Header with Brand Logo */}
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
@@ -128,20 +135,6 @@ export default function AuthForm() {
             Đăng ký tài khoản
           </button>
         </div>
-
-        {error && (
-          <div className="alert alert-danger">
-            <span>⚠️</span>
-            <span>{error}</span>
-          </div>
-        )}
-
-        {success && (
-          <div className="alert alert-success">
-            <span>✅</span>
-            <span>{success}</span>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -226,14 +219,15 @@ export default function AuthForm() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="maGioiThieu">Mã giới thiệu (không bắt buộc)</label>
+                <label htmlFor="maNguoiGioiThieu">Mã người giới thiệu (8 ký tự, không bắt buộc)</label>
                 <input
-                  id="maGioiThieu"
+                  id="maNguoiGioiThieu"
                   type="text"
                   className="input-mono"
-                  placeholder="APEX-9988"
-                  value={maGioiThieu}
-                  onChange={(e) => setMaGioiThieu(e.target.value)}
+                  placeholder="VD: HO6BI70X"
+                  value={maNguoiGioiThieu}
+                  onChange={(e) => setMaNguoiGioiThieu(e.target.value.toUpperCase())}
+                  maxLength={8}
                 />
               </div>
             </>

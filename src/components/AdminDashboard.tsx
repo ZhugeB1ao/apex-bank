@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { signOut } from "../services/auth";
 import { getAllProfiles } from "../services/profile";
 import type { BankProfile } from "../types/bank-profile";
+import Toast from "./Toast";
 
 export default function AdminDashboard() {
   const [profiles, setProfiles] = useState<BankProfile[]>([]);
@@ -43,7 +44,8 @@ export default function AdminDashboard() {
       p.cccd.includes(q) ||
       p.sdt.includes(q) ||
       p.dia_chi.toLowerCase().includes(q) ||
-      (p.ma_gioi_thieu && p.ma_gioi_thieu.toLowerCase().includes(q))
+      (p.ma_gioi_thieu && p.ma_gioi_thieu.toLowerCase().includes(q)) ||
+      (p.ma_nguoi_gioi_thieu && p.ma_nguoi_gioi_thieu.toLowerCase().includes(q))
     );
   });
 
@@ -66,12 +68,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {error && (
-        <div className="alert alert-danger">
-          <span>⚠️</span>
-          <span>{error}</span>
-        </div>
-      )}
+      {error && <Toast message={error} type="error" onClose={() => setError("")} />}
 
       {/* Stats Bar */}
       <div className="stats-bar">
@@ -111,7 +108,7 @@ export default function AdminDashboard() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Tìm nhanh theo tên, số CCCD, SĐT, địa chỉ hoặc mã giới thiệu..."
+            placeholder="Tìm nhanh theo tên, số CCCD, SĐT, địa chỉ, mã cá nhân hoặc mã người giới thiệu..."
           />
           {search && (
             <button
@@ -143,7 +140,8 @@ export default function AdminDashboard() {
                   <th>Số CCCD</th>
                   <th>Số điện thoại</th>
                   <th>Địa chỉ thường trú</th>
-                  <th>Mã GT</th>
+                  <th>Mã cá nhân</th>
+                  <th>Người GT</th>
                   <th>Ngày đăng ký</th>
                 </tr>
               </thead>
@@ -156,8 +154,17 @@ export default function AdminDashboard() {
                     <td style={{ fontWeight: 600 }}>{p.ho_ten}</td>
                     <td className="table-mono">{p.cccd}</td>
                     <td className="table-mono">{p.sdt}</td>
-                    <td style={{ maxWidth: "260px" }}>{p.dia_chi}</td>
-                    <td className="table-mono">{p.ma_gioi_thieu || "—"}</td>
+                    <td style={{ maxWidth: "240px" }}>{p.dia_chi}</td>
+                    <td className="table-mono" style={{ fontWeight: 600, color: "var(--accent)" }}>
+                      {p.ma_gioi_thieu}
+                    </td>
+                    <td className="table-mono">
+                      {p.ma_nguoi_gioi_thieu ? (
+                        <span style={{ color: "var(--text-main)" }}>{p.ma_nguoi_gioi_thieu}</span>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                     <td className="table-mono">
                       {new Date(p.created_at).toLocaleDateString("vi-VN", {
                         year: "numeric",

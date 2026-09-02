@@ -11,7 +11,7 @@ export async function signUp(data: RegisterData) {
         cccd: data.cccd,
         sdt: data.sdt,
         dia_chi: data.diaChi,
-        ma_gioi_thieu: data.maGioiThieu || null,
+        ma_nguoi_gioi_thieu: data.maNguoiGioiThieu ? data.maNguoiGioiThieu.trim().toUpperCase() : null,
       },
     },
   });
